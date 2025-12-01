@@ -6,6 +6,9 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends gcc
 
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
 COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
@@ -15,7 +18,10 @@ WORKDIR /app
 
 COPY --from=builder /app/wheels /wheels
 COPY --from=builder /app/requirements.txt .
+COPY --from=builder /opt/venv /opt/venv
+
+WORKDIR /app
 
 RUN pip install --no-cache /wheels/*
+ENV PATH="/opt/venv/bin:$PATH"
 
-CMD ["python3", "run.py"]

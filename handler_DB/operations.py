@@ -63,3 +63,14 @@ def upsert(data: dict):
         logger.exception(
             f"Upsert failed for data: {data} — {e}"
         )
+
+def query_by_date(date):
+    logger.debug(f"Querying daily_stats for date: {date}")
+    try:
+        db = SessionLocal()
+        results = db.query(DailyStats).filter(DailyStats.date == date).all()
+        logger.info(f"Found {len(results)} records for date {date}")
+        return results
+    except Exception as e:
+        logger.exception(f"Failed to query daily_stats for date {date} — {e}")
+        return []

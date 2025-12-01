@@ -4,7 +4,7 @@ import sys
 from loguru import logger
 import pandas as pd
 
-from handler_DB.operations import upsert
+from handler_DB.operations import upsert, query_by_date
 from utils.utils import *
 from CONFIG import JSON_DIR, LOGS_DIR
 
@@ -77,6 +77,9 @@ def main():
                 upsert(row)
             except Exception as e:
                 logger.exception(f"Error during upsert for record {row}: {e}")
+
+        print(query_by_date(ISO_format('2025-06-04')))
+        print('====================================')
 
         logger.info("=== Program finished successfully ===")
 

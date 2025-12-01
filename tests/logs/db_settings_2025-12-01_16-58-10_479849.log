@@ -1,0 +1,244 @@
+2025-12-01 16:58:10.481 | INFO     | handler_DB.settings.settings:<module>:23 - Connecting to database: postgresql://postgres:denis2004@localhost:5500/SalesBrush
+2025-12-01 16:58:10.519 | SUCCESS  | handler_DB.settings.settings:<module>:27 - Database engine created successfully
+2025-12-01 16:58:14.590 | ERROR    | handler_DB.settings.settings:<module>:36 - Failed to create tables: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5500 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+    │                        │      └ <function Engine.raw_connection at 0x000001B80C4EF560>
+    │                        └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+    └ <sqlalchemy.engine.base.Connection object at 0x000001B80C9BFCB0>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           │    │    └ <function Pool.connect at 0x000001B80BFFB880>
+           │    └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+           └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+           │                └ <classmethod(<function _ConnectionFairy._checkout at 0x000001B80C0B19E0>)>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+            │                 └ <classmethod(<function _ConnectionRecord.checkout at 0x000001B80C0B0540>)>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x000001B80C0B37E0>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         │    └ <class 'sqlalchemy.util.langhelpers.safe_reraise'>
+         └ <module 'sqlalchemy.util' from 'C:\\Users\\Admin\\projects\\SalesBrush\\.venv\\Lib\\site-packages\\sqlalchemy\\util\\__init__...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+          │         │              └ <traceback object at 0x000001B80CD4B180>
+          │         └ <method 'with_traceback' of 'BaseException' objects>
+          └ OperationalError('connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)\n\tIs th...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           │    └ <function Pool._create_connection at 0x000001B80BFFB600>
+           └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           │                 └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+           └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    └ <sqlalchemy.pool.base._ConnectionRecord object at 0x000001B80CC96CF0>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         │    └ <class 'sqlalchemy.util.langhelpers.safe_reraise'>
+         └ <module 'sqlalchemy.util' from 'C:\\Users\\Admin\\projects\\SalesBrush\\.venv\\Lib\\site-packages\\sqlalchemy\\util\\__init__...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+          │         │              └ <traceback object at 0x000001B80CD4B040>
+          │         └ <method 'with_traceback' of 'BaseException' objects>
+          └ OperationalError('connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)\n\tIs th...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+    │    │                               │    │               └ <sqlalchemy.pool.base._ConnectionRecord object at 0x000001B80CC96CF0>
+    │    │                               │    └ <function create_engine.<locals>.connect at 0x000001B80C977E20>
+    │    │                               └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+    │    └ <member 'dbapi_connection' of '_ConnectionRecord' objects>
+    └ <sqlalchemy.pool.base._ConnectionRecord object at 0x000001B80CC96CF0>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           │       │        │        └ {'host': 'localhost', 'dbname': 'SalesBrush', 'user': 'postgres', 'password': 'denis2004', 'port': 5500}
+           │       │        └ []
+           │       └ <function DefaultDialect.connect at 0x000001B80C5D2340>
+           └ <sqlalchemy.dialects.postgresql.psycopg2.PGDialect_psycopg2 object at 0x000001B80C9BEE40>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           │    │            │        │        └ {'host': 'localhost', 'dbname': 'SalesBrush', 'user': 'postgres', 'password': 'denis2004', 'port': 5500}
+           │    │            │        └ ()
+           │    │            └ <function connect at 0x000001B80CCD20C0>
+           │    └ <module 'psycopg2' from 'C:\\Users\\Admin\\projects\\SalesBrush\\.venv\\Lib\\site-packages\\psycopg2\\__init__.py'>
+           └ <sqlalchemy.dialects.postgresql.psycopg2.PGDialect_psycopg2 object at 0x000001B80C9BEE40>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           │        │                       │                     └ {}
+           │        │                       └ None
+           │        └ 'host=localhost dbname=SalesBrush user=postgres password=denis2004 port=5500'
+           └ <built-in function _connect>
+
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5500 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\Admin\projects\SalesBrush\tests\test_db_operations.py", line 6, in <module>
+    from handler_DB.operations import create_in_db, upsert
+
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "C:\Users\Admin\projects\SalesBrush\handler_DB\operations.py", line 3, in <module>
+    from handler_DB.settings.settings import SessionLocal
+
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+> File "C:\Users\Admin\projects\SalesBrush\handler_DB\settings\settings.py", line 33, in <module>
+    Base.metadata.create_all(bind=engine)
+    │    │        │               └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+    │    │        └ <function MetaData.create_all at 0x000001B80C425BC0>
+    │    └ MetaData()
+    └ <class 'handler_DB.models.models.Base'>
+
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 5928, in create_all
+    bind._run_ddl_visitor(
+    │    └ <function Engine._run_ddl_visitor at 0x000001B80C4EF420>
+    └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3251, in _run_ddl_visitor
+    with self.begin() as conn:
+         │    └ <function Engine.begin at 0x000001B80C4EF380>
+         └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+  File "C:\Users\Admin\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 141, in __enter__
+    return next(self.gen)
+                │    └ <generator object Engine.begin at 0x000001B80CCB2A70>
+                └ <contextlib._GeneratorContextManager object at 0x000001B80CD288D0>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3241, in begin
+    with self.connect() as conn:
+         │    └ <function Engine.connect at 0x000001B80C4EF4C0>
+         └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3277, in connect
+    return self._connection_cls(self)
+           │    │               └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+    │          └ <classmethod(<function Connection._handle_dbapi_exception_noconnection at 0x000001B80C4ECD60>)>
+    └ <class 'sqlalchemy.engine.base.Connection'>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2440, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+          │                    │              │                 └ OperationalError('connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)\n\tIs th...
+          │                    │              └ (<class 'psycopg2.OperationalError'>, OperationalError('connection to server at "localhost" (::1), port 5500 failed: Connecti...
+          │                    └ <method 'with_traceback' of 'BaseException' objects>
+          └ OperationalError('(psycopg2.OperationalError) connection to server at "localhost" (::1), port 5500 failed: Connection refused...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+    │                        │      └ <function Engine.raw_connection at 0x000001B80C4EF560>
+    │                        └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+    └ <sqlalchemy.engine.base.Connection object at 0x000001B80C9BFCB0>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3301, in raw_connection
+    return self.pool.connect()
+           │    │    └ <function Pool.connect at 0x000001B80BFFB880>
+           │    └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+           └ Engine(postgresql://postgres:***@localhost:5500/SalesBrush)
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 447, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+           │                └ <classmethod(<function _ConnectionFairy._checkout at 0x000001B80C0B19E0>)>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+            │                 └ <classmethod(<function _ConnectionRecord.checkout at 0x000001B80C0B0540>)>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 711, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x000001B80C0B37E0>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         │    └ <class 'sqlalchemy.util.langhelpers.safe_reraise'>
+         └ <module 'sqlalchemy.util' from 'C:\\Users\\Admin\\projects\\SalesBrush\\.venv\\Lib\\site-packages\\sqlalchemy\\util\\__init__...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+          │         │              └ <traceback object at 0x000001B80CD4B180>
+          │         └ <method 'with_traceback' of 'BaseException' objects>
+          └ OperationalError('connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)\n\tIs th...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           │    └ <function Pool._create_connection at 0x000001B80BFFB600>
+           └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 388, in _create_connection
+    return _ConnectionRecord(self)
+           │                 └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+           └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 673, in __init__
+    self.__connect()
+    └ <sqlalchemy.pool.base._ConnectionRecord object at 0x000001B80CC96CF0>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 899, in __connect
+    with util.safe_reraise():
+         │    └ <class 'sqlalchemy.util.langhelpers.safe_reraise'>
+         └ <module 'sqlalchemy.util' from 'C:\\Users\\Admin\\projects\\SalesBrush\\.venv\\Lib\\site-packages\\sqlalchemy\\util\\__init__...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+          │         │              └ <traceback object at 0x000001B80CD4B040>
+          │         └ <method 'with_traceback' of 'BaseException' objects>
+          └ OperationalError('connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)\n\tIs th...
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 895, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+    │    │                               │    │               └ <sqlalchemy.pool.base._ConnectionRecord object at 0x000001B80CC96CF0>
+    │    │                               │    └ <function create_engine.<locals>.connect at 0x000001B80C977E20>
+    │    │                               └ <sqlalchemy.pool.impl.QueuePool object at 0x000001B80C9BF230>
+    │    └ <member 'dbapi_connection' of '_ConnectionRecord' objects>
+    └ <sqlalchemy.pool.base._ConnectionRecord object at 0x000001B80CC96CF0>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           │       │        │        └ {'host': 'localhost', 'dbname': 'SalesBrush', 'user': 'postgres', 'password': 'denis2004', 'port': 5500}
+           │       │        └ []
+           │       └ <function DefaultDialect.connect at 0x000001B80C5D2340>
+           └ <sqlalchemy.dialects.postgresql.psycopg2.PGDialect_psycopg2 object at 0x000001B80C9BEE40>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 629, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           │    │            │        │        └ {'host': 'localhost', 'dbname': 'SalesBrush', 'user': 'postgres', 'password': 'denis2004', 'port': 5500}
+           │    │            │        └ ()
+           │    │            └ <function connect at 0x000001B80CCD20C0>
+           │    └ <module 'psycopg2' from 'C:\\Users\\Admin\\projects\\SalesBrush\\.venv\\Lib\\site-packages\\psycopg2\\__init__.py'>
+           └ <sqlalchemy.dialects.postgresql.psycopg2.PGDialect_psycopg2 object at 0x000001B80C9BEE40>
+  File "C:\Users\Admin\projects\SalesBrush\.venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           │        │                       │                     └ {}
+           │        │                       └ None
+           │        └ 'host=localhost dbname=SalesBrush user=postgres password=denis2004 port=5500'
+           └ <built-in function _connect>
+
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5500 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5500 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
