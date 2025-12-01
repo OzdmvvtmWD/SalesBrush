@@ -15,11 +15,11 @@ load_dotenv()
 
 user_db = os.getenv('POSTGRES_USER', 'postgres')
 pass_db = os.getenv('POSTGRES_PASSWORD', 'postgres')
-host_db = os.getenv('POSTGRES_HOST', 'localhost')
+# host_db = os.getenv('POSTGRES_HOST', 'localhost')
 name_db = os.getenv('POSTGRES_DB', 'postgres')
-port_db = os.getenv('POSTGRES_PORT', 5432)
+# port_db = os.getenv('POSTGRES_PORT', 5432)
 
-url = f'postgresql://{user_db}:{pass_db}@{host_db}:{port_db}/{name_db}'
+url = f'postgresql://{user_db}:{pass_db}@db:5432/{name_db}'
 logger.info(f"Connecting to database: {url}")
 
 try:

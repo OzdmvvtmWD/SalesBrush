@@ -1,0 +1,53 @@
+2025-12-01 14:12:22.170 | INFO     | handler_DB.settings.settings:<module>:23 - Connecting to database: postgresql://postgres:denis2004@db:5432/SalesBrush
+2025-12-01 14:12:22.221 | SUCCESS  | handler_DB.settings.settings:<module>:27 - Database engine created successfully
+2025-12-01 14:12:22.272 | SUCCESS  | handler_DB.settings.settings:<module>:34 - Database tables created or already exist
+2025-12-01 14:12:22.273 | SUCCESS  | handler_DB.settings.settings:<module>:41 - SessionLocal configured successfully
+2025-12-01 14:12:22.334 | INFO     | __main__:main:62 - === Program started ===
+2025-12-01 14:12:22.335 | INFO     | __main__:run_func:15 - run_func started with date range 2025-06-01 → 2025-06-11
+2025-12-01 14:12:22.337 | DEBUG    | __main__:run_func:16 - JSON Path 1: /app/json_files/fb_spend.json
+2025-12-01 14:12:22.338 | DEBUG    | __main__:run_func:17 - JSON Path 2: /app/json_files/network_conv.json
+2025-12-01 14:12:22.339 | DEBUG    | utils.utils:read_json_file:15 - Reading JSON file: /app/json_files/fb_spend.json
+2025-12-01 14:12:22.343 | INFO     | utils.utils:read_json_file:19 - Loaded JSON file successfully: /app/json_files/fb_spend.json, records=5
+2025-12-01 14:12:22.344 | DEBUG    | utils.utils:read_json_file:15 - Reading JSON file: /app/json_files/network_conv.json
+2025-12-01 14:12:22.347 | INFO     | utils.utils:read_json_file:19 - Loaded JSON file successfully: /app/json_files/network_conv.json, records=5
+2025-12-01 14:12:22.349 | INFO     | __main__:run_func:22 - Loaded JSON files: old_json=5, incoming_json=5
+2025-12-01 14:12:22.350 | DEBUG    | utils.utils:get_days_intervals:50 - Filtering records between 2025-06-01 and 2025-06-11
+2025-12-01 14:12:22.352 | INFO     | utils.utils:get_days_intervals:59 - Filtered 5 records in date range 2025-06-01 → 2025-06-11
+2025-12-01 14:12:22.353 | DEBUG    | utils.utils:get_days_intervals:50 - Filtering records between 2025-06-01 and 2025-06-11
+2025-12-01 14:12:22.354 | INFO     | utils.utils:get_days_intervals:59 - Filtered 5 records in date range 2025-06-01 → 2025-06-11
+2025-12-01 14:12:22.356 | INFO     | __main__:run_func:26 - Filtered records: spend=5, conversions=5
+2025-12-01 14:12:22.359 | DEBUG    | __main__:run_func:30 - DataFrames created
+2025-12-01 14:12:22.368 | INFO     | __main__:run_func:38 - Merged dataframe size: 7
+2025-12-01 14:12:22.372 | DEBUG    | __main__:run_func:44 - CPA calculation completed
+2025-12-01 14:12:22.376 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.377 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.377 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.378 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.379 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.380 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.381 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.383 | DEBUG    | utils.utils:nan_to_none:69 - Converted NaN → None
+2025-12-01 14:12:22.384 | INFO     | __main__:run_func:53 - Prepared final records: 7
+2025-12-01 14:12:22.385 | INFO     | __main__:main:72 - Total records to upsert: 7
+2025-12-01 14:12:22.386 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-04', 'campaign_id': 'CAMP-123', 'spend': 37.5, 'conversions': 14, 'CPA': 2.68}
+2025-12-01 14:12:22.387 | DEBUG    | handler_DB.operations:upsert:40 - Upsert called with data: {'date': '2025-06-04', 'campaign_id': 'CAMP-123', 'spend': 37.5, 'conversions': 14, 'CPA': 2.68}
+2025-12-01 14:12:22.401 | INFO     | handler_DB.operations:upsert:57 - Upsert successful [date=2025-06-04, campaign_id=CAMP-123]
+2025-12-01 14:12:22.403 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-04', 'campaign_id': 'CAMP-456', 'spend': 19.9, 'conversions': 3, 'CPA': 6.63}
+2025-12-01 14:12:22.404 | DEBUG    | handler_DB.operations:upsert:40 - Upsert called with data: {'date': '2025-06-04', 'campaign_id': 'CAMP-456', 'spend': 19.9, 'conversions': 3, 'CPA': 6.63}
+2025-12-01 14:12:22.414 | INFO     | handler_DB.operations:upsert:57 - Upsert successful [date=2025-06-04, campaign_id=CAMP-456]
+2025-12-01 14:12:22.416 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-05', 'campaign_id': 'CAMP-123', 'spend': 42.1, 'conversions': 10, 'CPA': 4.21}
+2025-12-01 14:12:22.417 | DEBUG    | handler_DB.operations:upsert:40 - Upsert called with data: {'date': '2025-06-05', 'campaign_id': 'CAMP-123', 'spend': 42.1, 'conversions': 10, 'CPA': 4.21}
+2025-12-01 14:12:22.426 | INFO     | handler_DB.operations:upsert:57 - Upsert successful [date=2025-06-05, campaign_id=CAMP-123]
+2025-12-01 14:12:22.428 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-05', 'campaign_id': 'CAMP-456', 'spend': None, 'conversions': 5, 'CPA': None}
+2025-12-01 14:12:22.429 | DEBUG    | handler_DB.operations:upsert:40 - Upsert called with data: {'date': '2025-06-05', 'campaign_id': 'CAMP-456', 'spend': None, 'conversions': 5, 'CPA': None}
+2025-12-01 14:12:22.439 | INFO     | handler_DB.operations:upsert:57 - Upsert successful [date=2025-06-05, campaign_id=CAMP-456]
+2025-12-01 14:12:22.441 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-05', 'campaign_id': 'CAMP-789', 'spend': 11, 'conversions': None, 'CPA': None}
+2025-12-01 14:12:22.442 | DEBUG    | handler_DB.operations:upsert:40 - Upsert called with data: {'date': '2025-06-05', 'campaign_id': 'CAMP-789', 'spend': 11, 'conversions': None, 'CPA': None}
+2025-12-01 14:12:22.452 | INFO     | handler_DB.operations:upsert:57 - Upsert successful [date=2025-06-05, campaign_id=CAMP-789]
+2025-12-01 14:12:22.453 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-06', 'campaign_id': 'CAMP-888', 'spend': None, 'conversions': 7, 'CPA': None}
+2025-12-01 14:12:22.454 | DEBUG    | handler_DB.operations:upsert:40 - Upsert called with data: {'date': '2025-06-06', 'campaign_id': 'CAMP-888', 'spend': None, 'conversions': 7, 'CPA': None}
+2025-12-01 14:12:22.461 | INFO     | handler_DB.operations:upsert:57 - Upsert successful [date=2025-06-06, campaign_id=CAMP-888]
+2025-12-01 14:12:22.463 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-06', 'campaign_id': 'CAMP-999', 'spend': 5.25, 'conversions': None, 'CPA': None}
+2025-12-01 14:12:22.464 | DEBUG    | handler_DB.operations:upsert:40 - Upsert called with data: {'date': '2025-06-06', 'campaign_id': 'CAMP-999', 'spend': 5.25, 'conversions': None, 'CPA': None}
+2025-12-01 14:12:22.473 | INFO     | handler_DB.operations:upsert:57 - Upsert successful [date=2025-06-06, campaign_id=CAMP-999]
+2025-12-01 14:12:22.474 | INFO     | __main__:main:81 - === Program finished successfully ===

@@ -1,5 +1,19 @@
 services:
 
+  app:
+    build: .
+    restart: no
+    container_name: sales_brush
+    
+    env_file:
+      - .env
+
+    volumes:
+      - .:/app
+
+    depends_on:
+      - db
+
   db:
     image: postgres:17.5-alpine3.21
     restart: no
