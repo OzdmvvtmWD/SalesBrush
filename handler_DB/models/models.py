@@ -1,4 +1,4 @@
-from sqlalchemy import  Column, Integer, String, Float, Date
+from sqlalchemy import  Column, Integer, String, Float, Date, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase
    
 class Base(DeclarativeBase): 
@@ -13,4 +13,8 @@ class DailyStats(Base):
     spend = Column(Float, nullable=True)
     conversions = Column(Float, nullable=True)
     CPA = Column(Float, nullable=True)
+
+    __table_args__ = (
+        UniqueConstraint("date", "campaign_id", name="uix_date_campaign"),
+    )
 

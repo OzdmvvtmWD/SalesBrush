@@ -1,0 +1,19 @@
+2025-12-01 15:47:22.426 | INFO     | __main__:main:62 - === Program started ===
+2025-12-01 15:47:22.426 | INFO     | __main__:run_func:15 - run_func started with date range 2025-06-01 → 2025-06-11
+2025-12-01 15:47:22.426 | DEBUG    | __main__:run_func:16 - JSON Path 1: C:\Users\Admin\projects\SalesBrush\json_files\fb_spend.json
+2025-12-01 15:47:22.426 | DEBUG    | __main__:run_func:17 - JSON Path 2: C:\Users\Admin\projects\SalesBrush\json_files\network_conv.json
+2025-12-01 15:47:22.427 | INFO     | __main__:run_func:22 - Loaded JSON files: old_json=5, incoming_json=5
+2025-12-01 15:47:22.428 | INFO     | __main__:run_func:26 - Filtered records: spend=5, conversions=5
+2025-12-01 15:47:22.429 | DEBUG    | __main__:run_func:30 - DataFrames created
+2025-12-01 15:47:22.432 | INFO     | __main__:run_func:38 - Merged dataframe size: 7
+2025-12-01 15:47:22.433 | DEBUG    | __main__:run_func:44 - CPA calculation completed
+2025-12-01 15:47:22.435 | INFO     | __main__:run_func:53 - Prepared final records: 7
+2025-12-01 15:47:22.435 | INFO     | __main__:main:72 - Total records to upsert: 7
+2025-12-01 15:47:22.435 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-04', 'campaign_id': 'CAMP-123', 'spend': 37.5, 'conversions': 14, 'CPA': 2.68}
+2025-12-01 15:47:22.442 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-04', 'campaign_id': 'CAMP-456', 'spend': 19.9, 'conversions': 3, 'CPA': 6.63}
+2025-12-01 15:47:22.447 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-05', 'campaign_id': 'CAMP-123', 'spend': 42.1, 'conversions': 10, 'CPA': 4.21}
+2025-12-01 15:47:22.452 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-05', 'campaign_id': 'CAMP-456', 'spend': None, 'conversions': 5, 'CPA': None}
+2025-12-01 15:47:22.456 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-05', 'campaign_id': 'CAMP-789', 'spend': 11, 'conversions': None, 'CPA': None}
+2025-12-01 15:47:22.461 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-06', 'campaign_id': 'CAMP-888', 'spend': None, 'conversions': 7, 'CPA': None}
+2025-12-01 15:47:22.465 | DEBUG    | __main__:main:76 - Upserting record: {'date': '2025-06-06', 'campaign_id': 'CAMP-999', 'spend': 5.25, 'conversions': None, 'CPA': None}
+2025-12-01 15:47:22.470 | INFO     | __main__:main:81 - === Program finished successfully ===

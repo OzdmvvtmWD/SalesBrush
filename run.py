@@ -1,143 +1,88 @@
-import datetime
+import os
 import json
+import sys
 from loguru import logger
 import pandas as pd
-from handler_DB.settings.settings import SessionLocal
-from handler_DB.models.models import DailyStats 
 
-def create_in_db(data:dict):
-    try:
-        db = SessionLocal()
-        daily_stats = DailyStats(
-            date = data.get('date'),
-            campaign_id = data.get('campaign_id'),
-            spend = data.get('spend'),
-            conversions = data.get('conversions'),
-            CPA = data.get('CPA'),
-        )
-        db.merge(daily_stats)
-        db.commit()
-    except Exception as e:
-        print(e)
+from handler_DB.operations import upsert
+from utils.utils import *
+from CONFIG import JSON_DIR, LOGS_DIR
 
-def upsert(users: dict, update=True):
-    entries_to_update = 0
-    entries_to_put = []
+logger.add(sys.stderr, format="{time} {level} {message}",  level="INFO")
+logger.add(os.path.join(LOGS_DIR, "run_{time}.log"))
 
-    db = SessionLocal()
-
-    for each in (
-        db.query(DailyStats.id)
-        .filter(DailyStats.id.in_(users.keys()))
-        .all()
-    ):
-        values = users.pop(each.id)
-        entries_to_update += 1
-        if update:
-            db.merge(DailyStats(**values))
-
-    for u in users.values():
-        entries_to_put.append(u)
-
-    db.bulk_insert_mappings(DailyStats, entries_to_put)
-    db.commit()
-
-    return (
-        f" inserted:\t{len(entries_to_put)}\n"
-        f" {'updated' if update else 'not updated'}:\t{str(entries_to_update)}"
-    )
-
-def read_json_file(path:str):
-    try:
-        with open(path, 'r') as f:
-            return json.loads(f.read())
-    except Exception as error:
-        return {}
-  
-
-def ISO_format(date: str):
-    strptime_format = '%Y-%m-%d'
+def run_func(start_date: str, end_date: str, json_path_1: str, json_path_2: str):
+    logger.info(f"run_func started with date range {start_date} → {end_date}")
+    logger.debug(f"JSON Path 1: {json_path_1}")
+    logger.debug(f"JSON Path 2: {json_path_2}")
 
     try:
-        return datetime.datetime.strptime(date, strptime_format)
-    except ValueError:
-        print('date fail')
-        return None
+        old_json = read_json_file(json_path_1)
+        incoming_json = read_json_file(json_path_2)
+        logger.info(f"Loaded JSON files: old_json={len(old_json)}, incoming_json={len(incoming_json)}")
 
-
-def get_func_1(start_date: str, end_date:str, json_obj: list):
-    try:
-        return [element for element in json_obj \
-            if ISO_format(element['date']) >= ISO_format(start_date) and ISO_format(element['date']) <= ISO_format(end_date)]
-    except Exception as e:
-        print(e)
-  
-def save_division(a: float, b: float, round_result:int= 1):
-    try:
-        return round(a/b, round_result)
-    except Exception as e:
-        return None
-    
-def get_func_2(start_date: str, end_date: str, old_json: list, incoming_json: list):
-   
-    try:
-       
-        filtered_spend = get_func_1(start_date, end_date, old_json)
-        filtered_conversions = get_func_1(start_date, end_date, incoming_json)
+        filtered_spend = get_days_intervals(start_date, end_date, old_json)
+        filtered_conversions = get_days_intervals(start_date, end_date, incoming_json)
+        logger.info(f"Filtered records: spend={len(filtered_spend)}, conversions={len(filtered_conversions)}")
 
         df_spend = pd.DataFrame(filtered_spend)
         df_conversions = pd.DataFrame(filtered_conversions)
-        
+        logger.debug("DataFrames created")
+
         df_merged = pd.merge(
-            df_spend, 
-            df_conversions, 
-            on=['date', 'campaign_id'], 
+            df_spend,
+            df_conversions,
+            on=['date', 'campaign_id'],
             how='outer'
         )
+        logger.info(f"Merged dataframe size: {len(df_merged)}")
 
-       
         df_merged['CPA'] = df_merged.apply(
-            lambda row: save_division(row['spend'], row['conversions'], round_result=2), 
+            lambda row: save_division(row['spend'], row['conversions'], round_result=2),
             axis=1
         )
-        
+        logger.debug("CPA calculation completed")
+
         df_merged = df_merged[['date', 'campaign_id', 'spend', 'conversions', 'CPA']]
 
         final_data = []
         for record in df_merged.to_dict('records'):
-            new_record = {}
-            for k, v in record.items():
-                new_record[k] = nan_to_none(v)
-            final_data.append(new_record)
-        
+            cleaned = {k: nan_to_none(v) for k, v in record.items()}
+            final_data.append(cleaned)
+
+        logger.info(f"Prepared final records: {len(final_data)}")
         return final_data
-        
+
     except Exception as e:
-        logger.error(f"Error in get_func_2: {e}")
+        logger.exception(f"Error in run_func: {e}")
         return []
 
-def nan_to_none(value):
-    if pd.isna(value):
-        return None
-    if isinstance(value, float) and value == int(value) and value >= 0:
-        return int(value)
-    return value
 
-json_file_1 = read_json_file(r'C:\Users\Admin\projects\SalesBrush\json_files\fb_spend.json')
-json_file_2 = read_json_file(r'C:\Users\Admin\projects\SalesBrush\json_files\network_conv.json')
+def main():
+    logger.info("=== Program started ===")
+
+    try:
+        result = run_func(
+            '2025-06-01',
+            '2025-06-11',
+            os.path.join(JSON_DIR, 'fb_spend.json'),
+            os.path.join(JSON_DIR, 'network_conv.json')
+        )
+
+        logger.info(f"Total records to upsert: {len(result)}")
+
+        for row in result:
+            try:
+                logger.debug(f"Upserting record: {row}")
+                upsert(row)
+            except Exception as e:
+                logger.exception(f"Error during upsert for record {row}: {e}")
+
+        logger.info("=== Program finished successfully ===")
+
+    except Exception as e:
+        logger.exception(f"Unhandled error in main(): {e}")
 
 
-res_3 = get_func_2('2025-06-01', '2025-06-11', json_file_1, json_file_2)
-print(json.dumps(res_3, indent=4))
-
-
-columns = ['date', 'campaign_id', 'spend', 'conversions', 'CPA']
-
-d = pd.DataFrame(data=res_3, columns=columns)
-users = {
-    f"{row['date']}_{row['campaign_id']}": row
-    for row in res_3
-}
-
-result = upsert(users)
-print(result)
+if __name__ == '__main__':
+    main()
